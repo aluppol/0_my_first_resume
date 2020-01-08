@@ -1,0 +1,45 @@
+@import 'normalize';
+
+@import 'variables';
+
+@import 'mixins';
+
+
+* {
+    box-sizing: border-box;
+    outline: none;
+}
+html {
+    min-height: 100%;
+    font-size: 10px;
+}
+
+a,
+button {
+    transition: all .25s ease-in-out;
+    text-decoration: none;
+}
+
+body {
+    min-height: 100%;
+    @include font(1.4rem, $text-color, 300, $page-ff, 1.8);
+    background-image: linear-gradient($a-color, $g-color);
+    background-repeat: no-repeat;
+}
+
+.container {
+    max-width: 1140px;
+    padding: 0 3vw;
+}
+
+.page {
+    // display: none;
+    width: 96vw;
+    margin: 2vw auto;
+    background: $g-color;
+    box-shadow: .1rem .1rem .5rem 0 $b-color;
+    border-radius: .3rem;
+    overflow: hidden;
+}
+
+@import 'header';

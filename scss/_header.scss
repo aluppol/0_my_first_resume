@@ -1,0 +1,47 @@
+.section{
+    &--header {
+        background-image: linear-gradient($i-color, $g-color);
+        color: $d-color;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    // rgb(0, 73, 57)
+    &__title {
+        &--logo {
+            font-family: $logo-ff;
+            text-shadow: 0 0 .2rem $g-color;
+            mix-blend-mode: multiply;
+        }
+    }
+}
+
+.socials {
+    padding: 0;
+
+    &__item {
+        display: inline-block;
+        margin: 0 .2rem;
+    }
+
+    &__link {
+        display: flex;
+        color: $j-color;
+        font-size: 1.2em;
+        height: 30px;
+        width: 30px;
+        line-height: 30px;
+        border: 2px solid $c-color;
+        border-radius: 50%;
+        // opacity: .6;
+        align-items: center;
+        justify-content: center;
+        background-color: $c-color;
+
+        @include hover {
+            color: $c-color;
+            background-color: transparent;
+        }
+    }
+}
