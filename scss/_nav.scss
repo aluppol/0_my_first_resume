@@ -1,0 +1,152 @@
+
+.nav {
+    z-index: 2;
+    /* outline: 1px solid black; */
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+
+    &__logo {
+        font-family: $logo-ff;
+        font-size: 5rem;
+    }
+
+    &__links {
+        display: flex;
+        min-width: 545px;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+    &__link {
+        @include font(1.7rem, $text-color, 300, $page-ff, 1.6);
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 0 2px;
+        margin: auto;
+        border: 3px solid transparent;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        @include hover {
+            border-top-color: #ff6033;
+        }
+    }
+
+    &__burger {
+        width: 5rem;
+        height: 5rem;
+        background: rgba(0, 0, 0, 0);
+        border: none;
+        outline: none;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        font-size: 4rem;
+        display: none;
+    }
+
+    &__symbol {
+        width: 70px;
+        height: 50px;
+        font-size: 40px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        display: none;
+    }
+}
+
+@media screen and (max-width:768px) {
+
+    .nav {
+        &__logo {
+            width: 0;
+            overflow: hidden;
+        }
+    }
+
+}
+
+@media screen and (max-width:576px) {
+    .nav {
+        &__logo {
+        }
+
+        &__symbol {
+        }
+
+        &__links {
+        }
+
+        &__link {
+            overflow: hidden;
+            position: fixed;
+            width: 200px;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            min-width: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0;
+            padding: 0;
+            padding-left: 3rem;
+            left: -200px;
+            color: rgb(0, 0, 0);
+            margin-top: 1rem;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.7);
+            background: rgba(255, 246, 246, 0.623);
+            border-radius: 0 1rem 1rem 0;
+            @include hover {
+                border-color: #ff6033;
+                // .nav__symbol {
+                //     color: #ff6033;
+                    
+                // }
+            }
+        }
+
+        &__burger {
+            position: fixed;
+            right: 7vw;
+            top: 7vw;
+            transform-origin: center;
+            cursor: pointer;
+            transform: translate(-50%, -50%) rotateZ(0deg);
+            transform-origin: 50%;
+            @include hover {
+                color: #ff5f33;
+            }
+        }
+    }
+}
+
+#burger:checked + .nav__logo {
+    & + .nav__burger {
+    transform: translate(-50%, -50%) rotateZ(-90deg);
+    left: 7vw;
+    @include tr;
+
+        & + .nav__links {
+            .nav__link {
+                left: -130px;
+            }
+        }
+    }
+}
+
+.full-view {
+    #burger:checked + .nav__logo {
+        left: 50%;
+
+        & + .nav__burger {
+            left: 93vw;
+            & + .nav__links {
+                .nav__link {
+                    left: -25px;
+                }
+            }
+        }
+    } 
+}

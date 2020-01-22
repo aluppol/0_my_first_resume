@@ -1,25 +1,21 @@
-.section{
-    &--header {
-        background-image: linear-gradient($i-color, $g-color);
-        color: $d-color;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    // rgb(0, 73, 57)
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
     &__title {
-        &--logo {
-            font-family: $logo-ff;
-            text-shadow: 0 0 .2rem $g-color;
-            mix-blend-mode: multiply;
-        }
+        @include font(4rem, rgba(0, 0, 0, 0), 400, $logo-ff, 7.3rem);
+        margin: auto;
+        // mix-blend-mode: soft-light;
+        -webkit-text-stroke-width: .1px;
+        -webkit-text-stroke-color: $cover-color;
     }
 }
 
 .socials {
     padding: 0;
-
+    width: 40%;
+    display: flex;
+    justify-content: space-evenly;
     &__item {
         display: inline-block;
         margin: 0 .2rem;

@@ -1,0 +1,11 @@
+.bg-video {
+    @include pCenter;
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+    
+    &--hero {
+        transform: translate(-50%, -50%) rotate(180deg);
+    }
+  }

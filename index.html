@@ -12,35 +12,137 @@
 </head>
 
 <body>
-    <div class="page">
-        <header class="section section--header container">
-            <h1 class="section__title section__title--logo">
-                Albert Luppol
-            </h1>
-            <ul class="socials">
-                <li class="socials__item">
-                    <a href="https://www.facebook.com/albert.luppol.50" target="_blank" class="socials__link">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                </li>
-                <li class="socials__item">
-                    <a href="https://www.linkedin.com/in/albert-luppol-8358a516b" target="_blank" class="socials__link">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                </li>
-                <li class="socials__item">
-                    <a href="https://github.com/Albert-Y-Luppol?tab=repositories" target="_blank" class="socials__link">
-                        <i class="fab fa-github"></i>
-                    </a>
-                </li>
-            </ul>
-        </header>
+
+     <!-- in touch -->
+     <div class="touch container">
+        <input type="checkbox" id="touch" hidden>
+        <label for="touch" class="touch__burger">
+            <i class="fas fa-link"></i>
+        </label>
+        <ul class="touch__items">
+            <li class="touch__bg">
+                <svg height="100%" width="100%" class="touch__side-bar">
+                    <use xlink:href="#side-bar"></use>
+                </svg>
+            </li>
+            <li class="touch__item">
+                <a href="tel:+380952162129" class="touch__link">
+                    <i class="touch__symbol fas fa-phone"></i>
+                </a>
+            </li>
+            <li class="touch__item">
+                <a href="mailto:Albert.Y.Luppol@gmail.com" class="touch__link">
+                    <i class="touch__symbol fas fa-envelope"></i>
+                </a>
+            </li>
+            <li class="touch__item">
+                <a href="https://www.facebook.com/albert.luppol.50" target="_blank" class="touch__link">
+                    <i class="touch__symbol fab fa-facebook-f"></i>
+                </a>
+            </li>
+            <li class="touch__item">
+                <a href="https://www.linkedin.com/in/albert-luppol-8358a516b" target="_blank" class="touch__link">
+                    <i class="touch__symbol fab fa-linkedin-in"></i>
+                </a>
+            </li>
+            <li class="touch__item">
+                <a href="https://github.com/Albert-Y-Luppol?tab=repositories" target="_blank" class="touch__link">
+                    <i class="touch__symbol fab fa-github"></i>
+                </a>
+            </li>
+            <li class="touch__item">
+                <a href=" https://www.hackerrank.com/Albert_Luppol" target="_blank" class="touch__link">
+                    <i class="touch__symbol fab fa-hackerrank"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+     <!-- nav -->
+     <!-- <nav class="nav container full-view">
+        <input type="checkbox" id="burger" hidden>
+        <div class="nav__logo"><span>Cahee</span></div>
+        <label for="burger" class="nav__burger">
+            <i class="fas fa-bars"></i>
+        </label>
+        <div class="nav__links">
+            <a href="#hero" class="nav__link">home
+                <i class="nav__symbol fas fa-home"></i>
+            </a>
+            <a href="#skills" class="nav__link">about
+                <i class="nav__symbol far fa-id-badge"></i>
+            </a>
+            <a href="#portfolio" class="nav__link">services
+                <i class="nav__symbol fas fa-concierge-bell"></i>
+            </a>
+            <a href="#experiense" class="nav__link">gallery
+                <i class="nav__symbol fas fa-photo-video"></i>
+            </a>
+            <a href="#education" class="nav__link">blog
+                <i class="nav__symbol fas fa-blog"></i>
+            </a>
+            <a href="#interests" class="nav__link">contact
+                <i class="nav__symbol fas fa-phone-square-alt"></i>
+            </a>
+        </div>
+    </nav> -->
+
+    <!-- hero -->
+
+    <section class="section" id="hero">
+
+        <!-- background -->
+        <!-- <video autoplay muted loop id="myVideo" class="bg-video bg-video--hero">
+            <source src="video/phone-bg--hero.mp4" type="video/mp4">
+        </video> -->
+
+
+        <!-- hero -->
+
+            
+            <header class="header container">
+                <h1 class="header__title">
+                    Albert Luppol
+                </h1>
+            </header>
+            <div class="section--hero container">
+
+                <div class="slider">
+                    <div class="slider__slide">
+                        <div class="profile">
+                                <div class="profile__part">
+                                    <div class="profile__img-wrap">
+                                        <img class="profile__img" src="img/me.jpg" alt="Photo of Albert Luppol">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <button class="slider__arrow slider__arrow--left"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider__arrow slider__arrow--right"><i class="fas fa-chevron-right"></i></button>
+                    <ul class="slider__dots">
+                        <li class="slider__dot">
+                            <button class="slider__dot-btn">1</button>
+                        </li>
+                        <li class="slider__dot slider__dot--active">
+                            <button class="slider__dot-btn">2</button>
+                        </li>
+                        <li class="slider__dot">
+                            <button class="slider__dot-btn">3</button>
+                        </li>
+                    </ul>
+                </div>
+
+                
+            </div>
+        <!-- </div> -->
+    
+    </section>
 
 
 
 
 
-        <img src="img/me.jpg" alt="Photo of Albert Luppol" style="width: 20%; height:40%">
     <h1>Albert Luppol</h1>
         <li>Phone: <a href="tel:+380968149744">+38 (096) 814-97-44</a></li>
         <li>E-mail: <a href="mailto:Albert.Y.Luppol@gmail.com">Albert.Y.Luppol@gmail.com</a></li>
@@ -93,6 +195,23 @@
 
 
     </div>
+
+    <!-- SVG sprite -->
+
+    <svg hidden>
+        <!-- width="128" height="128" -->
+        <symbol id="side-bar" viewBox="0 0 93  126">
+            <path d="
+            M59 2.8867513459481a10  10 0 0 1 2 0l45.425625842204 
+            26.226497308104a10      4 0 0 1 1 1.6602540378444l0 
+            52.452994616207a10      4 0 0 1 -1 1.6602540378444l-45.425625842204 26.226497308104a10      10 0 0 1 -10 0l-45.425625842204 
+            -26.226497308104a10     10 0 0 1 -5 -8.6602540378444l0 
+            -52.452994616207a10     10 0 0 1 5 -8.6602540378444"></path>
+        </symbol> 
+    </svg>
+
+    
+    <script src="js/swipe-handler.js"></script>
 </body>
 
 </html>

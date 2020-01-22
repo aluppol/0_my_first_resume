@@ -8,6 +8,7 @@
 * {
     box-sizing: border-box;
     outline: none;
+    @include tr;
 }
 html {
     min-height: 100%;
@@ -22,7 +23,9 @@ button {
 
 body {
     min-height: 100%;
+    // overflow: hidden;
     @include font(1.4rem, $text-color, 300, $page-ff, 1.8);
+    // background-color: #fff;
     background-image: linear-gradient($a-color, $g-color);
     background-repeat: no-repeat;
 }
@@ -35,11 +38,26 @@ body {
 .page {
     // display: none;
     width: 96vw;
-    margin: 2vw auto;
+    height: 90vh;
+    margin:2vh auto;
     background: $g-color;
     box-shadow: .1rem .1rem .5rem 0 $b-color;
     border-radius: .3rem;
     overflow: hidden;
 }
 
+.section {
+    min-height: 100vh;
+    overflow: hidden;
+    background-image: radial-gradient(circle at center , $brand-color, #000);
+}
+
 @import 'header';
+
+@import 'hero';
+
+@import 'slider';
+
+@import 'nav';
+
+@import 'touch';
