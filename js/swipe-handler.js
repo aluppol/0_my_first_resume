@@ -3,8 +3,9 @@
 document.addEventListener('touchstart', handleTouchStart, false);        
 document.addEventListener('touchmove', handleTouchMove, false);
 
-var xDown = null;                                                        
-var yDown = null;
+let xDown = null;                                                        
+let yDown = null;
+let alignmentToNav = true;
 
 function getTouches(evt) {
 return evt.touches ||             // browser API
@@ -14,7 +15,7 @@ return evt.touches ||             // browser API
 function handleTouchStart(evt) {
     const firstTouch = getTouches(evt)[0];                                      
     xDown = firstTouch.clientX;                                      
-    yDown = firstTouch.clientY;                                      
+    yDown = firstTouch.clientY;        
 };                                                
 
 function handleTouchMove(evt) {
@@ -22,28 +23,41 @@ function handleTouchMove(evt) {
         return;
     }
 
-    var xUp = evt.touches[0].clientX;                                    
-    var yUp = evt.touches[0].clientY;
+    let xUp = evt.touches[0].clientX;                                    
+    let yUp = evt.touches[0].clientY;
 
-    var xDiff = xDown - xUp;
-    var yDiff = yDown - yUp;
+    let xDiff = xDown - xUp;
+    let yDiff = yDown - yUp;
+
+    alignmentToNav = (xDown + xUp)*4/3 > window.innerWidth ? true : false;
+    alignmentToNav = xUp < innerWidth/4 ? false : alignmentToNav;
 
     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-        if ( xDiff > 0 ) {
-            /* left swipe */
-            document.querySelector('.nav').classList.remove('full-view');
+        if(!alignmentToNav) {
+            if ( xDiff > 0 ) {
+                /* left swipe */
+                document.querySelector('#touch').checked = false;
+            } else {
+                /* right swipe */
+                document.querySelector('#touch').checked = true;
+            }  
         } else {
-            /* right swipe */
-            document.querySelector('.nav').classList.add('full-view');
-        }                       
+            if ( xDiff > 0 ) {
+                /* left swipe */
+                document.querySelector('#nav').checked = true;
+            } else {
+                /* right swipe */
+                document.querySelector('#nav').checked = false;
+            }  
+        }                     
     } 
     else {
         if ( yDiff > 0 ) {
             /* up swipe */ 
-            document.querySelector('.nav').classList.remove('full-view');
+            // document.querySelector('#touch').checked = false; classList.remove('full-view');
         } else { 
             /* down swipe */
-            document.querySelector('.nav').classList.remove('full-view');
+            // document.querySelector('#touch').checked = false; classList.remove('full-view');
         }                                                                 
     }
     /* reset values */

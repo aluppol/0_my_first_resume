@@ -1,3 +1,47 @@
+@keyframes hero-title-text {
+    0% {
+      background-position: -500%;
+    }
+    100% {
+      background-position: 500%;
+    }
+}
+
+@keyframes scroll-animation {
+    0% {
+      background-position: 0% 200%;
+    }
+    100% {
+      background-position: 0% -100%;
+    }
+}
+
+@keyframes blinc-animation {
+    0% {
+      background-position: 50% -110%;
+    }
+    50% {
+        background-position: 10% 110%;
+    }
+    100% {
+        background-position: 50% -110%;
+    }
+}
+
+@keyframes card-animation {
+    0% {
+      transform: rotateY(-10deg);
+    }
+    50% {
+        transform: rotateY(10deg);
+    }
+    100% {
+        transform: rotateY(-10deg);
+    }
+}
+
+
+
 .bg-video {
     @include pCenter;
     position: fixed;
@@ -8,4 +52,105 @@
     &--hero {
         transform: translate(-50%, -50%) rotate(180deg);
     }
-  }
+}
+
+.hero {
+    &__title{
+        position: relative;
+        font-family: sans-serif;
+        text-transform: uppercase;
+        font-size: 2em;
+        letter-spacing: 4px;
+        overflow: hidden;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0), #fff, rgba(0, 0, 0, 0));
+        background-repeat: no-repeat;
+        background-size: 80%;
+        animation: hero-title-text 3s linear infinite;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: rgba(255, 255, 255, 0);
+        text-align: center;
+        @include font(2.5rem, rgba(0, 0, 0, 0), 400, $logo-ff, 1.2);
+        margin: 1rem 0 0 0;
+        // mix-blend-mode: soft-light;
+        -webkit-text-stroke-width: .1px;
+        -webkit-text-stroke-color: $cover-color;
+    }
+}
+
+.cards {
+    position: absolute;
+    min-height: 100vh;
+    left: 0;
+    top: 0;
+    right: 0;
+    // padding-bottom: 10rem;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    &__box{
+        user-select: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        perspective: 80rem;
+    }
+    &__card{
+        border: 1px solid $cover-color;
+        animation: card-animation 6s ease-in-out infinite;
+        transform-style: preserve-3d;
+    }
+    &__front{}
+    &__img-wrap{
+        width: calc(50vh * 6 / 9);
+        height: 50vh;
+        position: relative;
+        overflow: hidden;
+    }
+    &__img{
+        min-height: 100%;
+        min-width: 100%;
+        @include pCenter;
+    }
+    &__img-blink {
+        display: none;
+        position: absolute;
+        background: linear-gradient(45deg, rgba(0, 0, 0, 0) 40%, rgba(255, 255, 255, 0.651) 50% , rgba(0, 0, 0, 0) 60%);
+        width: 100%;
+        height: 100%;
+        animation: blinc-animation 6s ease-in-out infinite;
+        background-size: 110% 110%;
+        background-repeat: no-repeat;
+    }
+}
+
+.scroll {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    // border: .5px solid $cover-color;
+    bottom: 0rem;
+    left: 50%;
+    width: 10rem;
+    height: 6rem;
+    display: flex;
+    transform: translate(-50%, -50%);
+    & i {
+        position: relative;
+        // font-family: sans-serif;
+        // text-transform: uppercase;
+        font-size: 5rem;
+        overflow: hidden;
+        background: linear-gradient(0deg,  rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.712), rgba(0, 0, 0, 0));
+        background-repeat: no-repeat;
+        background-size: 100% 300%;
+        animation: scroll-animation 5s linear infinite;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: rgba(255, 255, 255, 0);
+        text-align: center;
+        margin: auto;
+        mix-blend-mode: soft-light;
+        -webkit-text-stroke-width: .1px;
+        -webkit-text-stroke-color: $cover-color;
+    }
+}
