@@ -13,6 +13,7 @@
 html {
     min-height: 100%;
     font-size: 10px;
+    scroll-behavior: smooth;
 }
 
 a,
@@ -47,15 +48,19 @@ body {
 }
 
 .section {
+    // box-sizing: content-box;
+    transform-style: flat;
     min-height: 100vh;
     overflow: hidden;
-    background-image: radial-gradient(circle at center , $brand-color, #000);
+    box-shadow: 0 0 0 1px $cover-color;
 }
 
-@import 'header';
 
 @import 'hero';
+
+@import 'jobs';
 
 @import 'nav';
 
 @import 'touch';
+

@@ -1,7 +1,7 @@
 .nav {
     // outline: 1px solid red;
-    display: none;
-    position: absolute;
+    display: block;
+    position: fixed;
     z-index: 1;
     // transform-origin: right;
     right: 0;
@@ -180,4 +180,43 @@
     .nav {
         display: block;
     }
+}
+
+@media screen and (max-height: 500px) and (orientation: landscape){
+
+    .nav {
+        display: block;
+    
+
+        
+        &__items {
+            right: 0px;
+        }
+    
+        &__burger {
+            display: none;
+        }
+    }
+
+}
+
+@media screen and (max-height: 400px){
+
+    .nav {
+      
+        &__items{
+            
+            min-height: 100vh;
+            padding: 0px 7px 0px 5px;
+        }
+
+        &__item {
+            &:nth-child(6),
+            &:nth-child(5){
+                display: none;
+            }
+        }
+    
+    }
+
 }

@@ -1,6 +1,6 @@
 .touch {
     // outline: 1px solid red;
-    display: none;
+    display: block;
     position: absolute;
     z-index: 1;
 
@@ -84,7 +84,7 @@
         background: rgba(0, 0, 0, 0);
         border: .1px solid $cover-color;
         display: flex;
-        position: absolute;
+        position: fixed;
         z-index: 2;
         left: 3rem;
         top: 3.3rem;
@@ -104,10 +104,8 @@
         width: 50px;
         height: 50px;
         font-size: 40px;
-        display: flex;
         justify-content: space-around;
         align-items: center;
-        display: none;
         display: flex;
         background-color: #ff5f3300;
         color: rgb(0, 0, 0);
@@ -132,3 +130,43 @@
         display: block;
     }
 }
+
+@media screen and (max-height: 500px) and (orientation: landscape){
+
+    .touch {
+        display: block;
+    
+
+        
+        &__items {
+            left: 0px;
+        }
+    
+        &__burger {
+            display: none;
+        }
+    }
+
+}
+
+@media screen and (max-height: 400px){
+
+    .touch {
+      
+        &__items{
+            
+            min-height: 100vh;
+            padding: 0px 7px 0px 5px;
+        }
+
+        &__item {
+            &:nth-child(6),
+            &:nth-child(3){
+                display: none;
+            }
+        }
+    
+    }
+
+}
+

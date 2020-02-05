@@ -54,7 +54,27 @@
     }
 }
 
+.section--hero{
+    background-image: radial-gradient(circle at center , $brand-color, #000);
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    &__title {
+        @include font(4rem, rgba(0, 0, 0, 0), 400, $logo-ff, 7.3rem);
+        margin: auto;
+        // mix-blend-mode: soft-light;
+        -webkit-text-stroke-width: .2px;
+        -webkit-text-stroke-color: $cover-color;
+    }
+}
+
+
 .hero {
+
+
     &__title{
         position: relative;
         font-family: sans-serif;
@@ -80,13 +100,12 @@
 
 .cards {
     position: absolute;
-    min-height: 100vh;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    right: 0;
+    top: 54.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     perspective: 80rem;
     // padding-bottom: 10rem;
+    z-index: 1;
 
     display: flex;
     justify-content: space-evenly;
@@ -97,6 +116,7 @@
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         perspective: 80rem;
         animation: card-animation-swing 5s ease-in-out infinite;
+        position: relative;
     }
     &__card{
         border: 1px solid $cover-color;
@@ -167,7 +187,7 @@
         // text-transform: uppercase;
         font-size: 5rem;
         overflow: hidden;
-        background: linear-gradient(0deg,  rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.712), rgba(0, 0, 0, 0));
+        background: linear-gradient(0deg,  rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.068), rgba(0, 0, 0, 0));
         background-repeat: no-repeat;
         background-size: 100% 300%;
         animation: scroll-animation 5s linear infinite;
@@ -224,4 +244,109 @@
             background: $consol-color;
         }
     }
+}
+
+
+@media (orientation: landscape){
+
+    .header{
+        &__title {
+            @include font(4rem, rgba(0, 0, 0, 0), 400, $logo-ff, 7.3rem);
+            margin: auto;
+            // mix-blend-mode: soft-light;
+            -webkit-text-stroke-width: .2px;
+            -webkit-text-stroke-color: $cover-color;
+        }
+    }
+
+
+    .cards {
+        // outline: 1px solid yellow;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: translate(0, 0);
+        margin: 10px 55px;
+    
+        &__box{
+            cursor: auto;
+            animation: none;
+            width:100%;
+            height: 100%;
+        }
+        &__card{
+            // outline: 1px solid blue;
+            border: none;
+            width:100%;
+            height: 100%;
+            box-shadow: none;
+            display: flex;
+            justify-content: space-between;
+        }
+        &__front,
+        &__back {
+            position: relative;
+            width: 49%;
+            height: auto;
+            background-color: $bg-color;
+            border: 1px solid $cover-color;
+            min-height: 400px;
+        }
+        &__back{
+            transform: rotateY(0);
+        }
+        &__img{
+            min-height: 100%;
+            min-width: 100%;
+            @include pCenter;
+            user-select: none;
+    
+        }
+        &__img-blink {
+            display: none;
+            position: absolute;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0) 40%, rgba(255, 255, 255, 0.651) 50% , rgba(0, 0, 0, 0) 60%);
+            width: 100%;
+            height: 100%;
+            animation: blinc-animation 6s ease-in-out infinite;
+            background-size: 110% 110%;
+            background-repeat: no-repeat;
+        }
+       
+        &__checkbox:checked + .cards__box .cards__card{
+            transition: transform 0.8s;
+            transform: translateX(0) rotateY(0);
+        }
+    }
+
+    .scroll {
+        position: relative;
+        bottom: 0rem;
+        left: 50%;
+        width: 10rem;
+        height: 12rem;
+        display: flex;
+        transform: translate(-50%, 0%);
+        & i {
+            position: relative;
+            // font-family: sans-serif;
+            // text-transform: uppercase;
+            font-size: 5rem;
+            overflow: hidden;
+            background: linear-gradient(0deg,  rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.068), rgba(0, 0, 0, 0));
+            background-repeat: no-repeat;
+            background-size: 100% 300%;
+            animation: scroll-animation 5s linear infinite;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: rgba(255, 255, 255, 0);
+            text-align: center;
+            margin: auto;
+            mix-blend-mode: soft-light;
+            -webkit-text-stroke-width: .1px;
+            -webkit-text-stroke-color: $cover-color;
+        }
+    }
+    
+
 }
