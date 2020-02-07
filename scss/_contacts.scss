@@ -1,0 +1,227 @@
+@keyframes rotateY {
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+.section--contacts {
+    color: #000;
+    padding: 0;
+    text-shadow: 1px 1px 1px #fff;
+
+    a{
+        color: black;
+        @include tr;
+        &:hover,
+        &:active,
+        &:focus{
+            color: rgb(255, 255, 255);
+            text-shadow: -1px -1px 1px #000;
+        }
+    }
+
+    main {
+        background-color: #89a8ff;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        padding: 100px 0 120px 0;
+    }
+    
+    .section__title {
+        font-size: 9rem;
+        line-height: 7rem;
+        text-align: center;
+    }
+    
+    h1+p {
+        /* border: 1px solid green; */
+        display: block;
+        width: 360px;
+        margin: 40px auto;
+        text-align: center;
+    }
+    
+    h2 {
+        font-size: 1.7rem;
+        font-weight: 700;
+    }
+    
+    p+h2 {
+        margin-top: 15px;
+    }
+    
+    input:focus::placeholder,
+    textarea:focus::placeholder {
+        color: transparent;
+    }
+    
+    footer {
+        background-color: #000;
+        color: #b9b9b9;
+    }
+    
+    footer p {
+        text-align: center;
+        margin: 10px 0;
+    }
+    
+    footer p:nth-child(1) {
+        font-size: 1.6rem;
+    }
+    
+    footer p:nth-child(2) {
+        font-family: 'Pacifico';
+        font-size: 2.5rem;
+    }
+    
+    footer p:nth-child(3) {
+        font-size: 1.5rem;
+    }
+    
+    footer p:nth-child(3) span {
+        color: #ff2b58;
+    }
+    
+    
+    .flex {
+        //  border: 1px solid green; 
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        min-width: 500px;
+        margin: 0 auto 0 auto;
+    }
+    
+    .flex__item {
+        /* border: 1px solid yellow; */
+        width: 500px;
+    }
+    
+    
+    /* .message {} */
+    
+    .message__input {
+        width: 100%;
+        background-color: rgba(0, 196, 196, 0.5);
+        border: none;
+        line-height: 5rem;
+        min-height: 5rem;
+        font-family: 'Raleway';
+        font-size: 1.5rem;
+        color: #fff;
+        padding: 0 15px;
+        border-left: 5px solid rgba(53, 91, 130, 0);
+        resize: none;
+    }
+    
+    .message__input::placeholder {
+        color: #fff;
+    }
+    
+    .message__input+.message__input {
+        margin-top: 15px;
+    }
+    
+    .filled:valid {
+        border-color: rgb(1, 119, 20);
+    }
+    
+    .filled:invalid {
+        border-color: rgb(255, 41, 41);
+    }
+    
+    .info p {
+        font-size: 2rem;
+    }
+    
+    .flex-footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        padding: 15px 0;
+        margin: 0 calc((-100% + 500px) * 16 / 100) 0 calc((-100% + 500px) * 165 / 1000);
+        min-width: 600px;
+    }
+    
+    .submit {
+        display: none;
+    }
+    
+    .link {
+        transition: all 3s ease-in-out;
+        position: relative;
+        width: 30px;
+        animation: rotateY 6s linear infinite;
+    }
+    
+    .fav-link:hover .link,
+    .fav-link:focus .link {
+        animation: rotateY 1s linear infinite;
+    }
+    
+    .fav-link:active .link {
+        animation-play-state: paused;
+    }
+    
+    .fav-link {
+        /* border: 1px solid black; */
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+    }
+}
+
+
+
+@media screen and (max-width:576px) {
+    .section--contacts {
+        .flex-footer {
+            margin: auto;
+            
+            p {
+                min-width: 100%;
+            }
+            min-width: 98%;
+        }
+    
+        .flex {
+            min-width: 98%;
+       }
+       
+       .flex__item {
+        min-width: 100%;
+       }
+    
+       .flex-footer {
+        min-width: 100%;
+        }
+        
+        .section__title {
+            font-size: 4rem;
+            margin-top: 0;
+            padding-top: 1.5rem;
+        }
+
+        main {
+            padding: 0;
+        }
+    }
+       
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* IE10+ CSS styles go here */
+    .message__input:nth-child(4) {
+        min-height: 250px;
+    }
+    .flex__item {
+       margin-left: auto;
+       margin-right: auto;
+    }
+
+    .section--contacts .flex-footer p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
