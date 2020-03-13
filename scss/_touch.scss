@@ -72,6 +72,19 @@
         @include hover {
             border-color: #ff6033;
         }
+
+        &:last-child{
+            & svg{
+                border-radius: 50%;
+                box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.9), 0 10px 5px -5px rgba(0, 0, 0, 0);
+            }
+
+            @include hover{
+                & svg{
+                    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.9), 0 10px 5px -5px rgba(0, 0, 0, .7);
+                }
+            }
+        }
     }
 
 

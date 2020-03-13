@@ -22,14 +22,15 @@
         width: calc(100%*65/120);
         /* border: 1px solid white; */
         line-height: 2.5rem;
+        margin-bottom: 0px;
     }
 
     & .jobs-list {
         // outline: 1px  solid green;
         display: flex;
         font-size: 0;
-        margin: 0 1.5rem 0 1.5rem;
-        justify-content: space-between;
+        margin: 3rem 1.5rem 0 1.5rem;
+        justify-content: space-evenly;
         text-align: left;
         flex-wrap: wrap;
     }
@@ -39,7 +40,7 @@
         /* border: 1px solid white; */
         user-select: none;
         cursor: alias;
-        width: calc(100% * 37 / 117);
+        width: 40%;
         overflow: hidden;
         background: rgb(255, 242, 67);
         position: relative;
@@ -51,17 +52,29 @@
             position: absolute;
             left: 50%;
             bottom: 5px;
-            transform: translate(-50%, 0);
+            transform: translate(-50%, 0) scale(.9);
             border-radius: .5rem;
             overflow: hidden;
             width: auto;
-            background: rgba(255, 255, 255, 0.76);
+            background: rgba(0, 0, 0, 0.685);
+            box-shadow: 0 0 2px 0 rgba(214, 214, 214, 0.685);
             padding: 5px;
 
-            &:hover,
-            &:focus,
-            &:active{
-                background: rgba(0, 0, 0, 0.685);
+
+            @include hover{
+                transform: translate(-50%, 0) scale(1);
+                box-shadow: 0 0 5px 3px rgb(255, 255, 255);
+            }
+
+            &--cpi{
+                box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.685);
+                transform: translate(-50%, 0) scale(.9);
+                background: rgb(255, 255, 255);
+                @include hover{
+                    transform: translate(-50%, 0) scale(1);
+                    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.685);
+                }
+
             }
 
             & img {
@@ -73,6 +86,25 @@
                 max-width: 200px;
             }
 
+        }
+
+        &__employer {
+            text-decoration: underline;
+            cursor: pointer;
+    
+            &:not(:empty):before {
+                content: "At ";
+                text-decoration: none;
+            }
+    
+            &:not(:empty):after {
+                content: " - ";
+                text-decoration: none;
+            }
+    
+            @include hover{
+                color: rgb(148, 148, 255);
+            }
         }
     }
 
@@ -138,13 +170,6 @@
         bottom: 33rem;
     }
 
-    .article__info__author:not(:empty):before {
-        content: "At ";
-    }
-
-    .article__info__author:not(:empty):after {
-        content: " - ";
-    }
 
     .article article p {
         font-size: 1.7rem;

@@ -99,7 +99,7 @@
                
             }
             &__text{
-                transform: scale(25);
+                // transform: scale(25);
                 @include tr;
                 position: absolute;
                 bottom: 0;
@@ -121,9 +121,7 @@
                 & a {
                     transform: scale(.9);
 
-                    &:hover,
-                    &:active,
-                    &:focus{
+                    @include hover{
                         transform: scale(1);
                     }
                 }
@@ -140,11 +138,8 @@
                     padding: 0;
                 }
 
-                &:hover,
-                &:active,
-                &:focus{
-                    transform: scale(1);
-                    @include tr;
+                @include hover{
+                    // transform: scale(1);
                 }
 
                 &--krok{

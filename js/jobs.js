@@ -11,18 +11,18 @@
         let jobs = document.querySelectorAll('.job'),
             rembud = jobs[0].querySelector('.job__time'),
             cpi = jobs[1].querySelector('.job__time'),
-            boeing = jobs[2].querySelector('.job__time'),
+            // boeing = jobs[2].querySelector('.job__time'),
             now = new Date(),
             rembudStartDate =  new Date(2018, 6),
-            cpiStopDate = rembudStartDate,
-            boeingStopDate = new Date(2017, 10);
+            cpiStartDate = new Date(2017, 10);
+            // boeingStartDate = new Date(2017, 6);
 
         rembud.innerHTML = `working within ${getTimeStringFromTo(rembudStartDate, now)}`;    
-        cpi.innerHTML = `worked ${getTimeStringFromTo(cpiStopDate, now)} ago`;  
-        boeing.innerHTML = `worked ${getTimeStringFromTo(boeingStopDate, now)} ago`;     
+        cpi.innerHTML = `sarted ${getTimeStringFromTo(cpiStartDate, now)} ago`;  
+        // boeing.innerHTML = `worked ${getTimeStringFromTo(boeingStartDate, now)} ago`;     
     }
 
-
+ 
     function getTimeStringFromTo(dateObjFrom, dateObjTo = new Date()){
 
         let years = 0,
