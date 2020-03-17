@@ -12,14 +12,17 @@
     font-family: $cards-ff;
     color: $add-color;
     user-select: none;
-    position: absolute;
+    position: relative;
     transform-style: preserve-3d;
+    min-height: 420px;
     // min-width: 300px;
-    height: 100%;
-    width: 100%;
+    // height: 100%;
+    // width: 100%;
+    // transform: translate(-50%, 0);
 
     &>div{
         position: absolute;
+        left: calc(50% - 170px);
     }
     
 
@@ -67,12 +70,6 @@
     &__img{
         @include pCenter;
         height: 100%;
-
-        &--w{
-            height: auto;
-            width: 100%;
-        }
-        
     }
 
     &__title{
@@ -147,7 +144,8 @@
 
 
 .scene{
-    width: 340px;
+    // width: 340px;
+    width: 70%;
     height: 460px;
     perspective: 1000px;
     position: relative;
@@ -169,16 +167,22 @@
         height: 100%;
         width: 40px;
         top: 50%;
-        background-color: rgba(0,0,0,0);
+        background-color: rgba(255, 255, 255, 0.201);
         cursor: pointer;
         border-color: #fff;
         border-width: 1px;
         padding: 0;
         padding-right: 3px;
         text-align: right;
+        box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.9);
+
+        & svg{
+            margin: 4px 0;
+        }
 
         @include hover{
             background-color: rgba(53, 41, 48, 0.301);
+            box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.9);
         }
 
         &--left{
@@ -197,7 +201,7 @@
     .btn{
         &__portfolio{
             transform: translate(0%, 0%);
-            top: 103%;
+            top: 105%;
             left: 55%;
             height: 40px;
     
@@ -206,6 +210,10 @@
                 right: 55%;
             }
         }
+    }
+
+    .scene{
+        transform: translate(0, -30px);
     }
 
 }

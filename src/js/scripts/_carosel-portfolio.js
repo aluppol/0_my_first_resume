@@ -11,13 +11,13 @@ function myCarosel(){
 
     let width = slides[0].offsetWidth;
 
-    let h = width/2 * Math.tan(180 / slides.length * Math.PI / 180);
+    let h = width/2 * 1 / Math.tan(180 / slides.length * Math.PI / 180);
 
     box.style.transform = `rotateY(0deg) translateZ(-${h}px)`;
 
     slides.forEach((slide, i)=>{
         slide.style.cssText = `
-            transform: rotateY(${360 / slides.length * i}deg) translateZ(${h}px);
+            transform: rotateY(${360 / slides.length * i}deg)  translateZ(${h}px);
         `;
     });
 
