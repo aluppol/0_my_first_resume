@@ -2,6 +2,10 @@
     'use strict';
 
     {
+        //= scripts/_skills.js
+    }
+
+    {
         //= scripts/_swipe-handler.js
     }
 
