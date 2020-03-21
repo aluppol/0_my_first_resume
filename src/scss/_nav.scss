@@ -36,16 +36,14 @@
     
     &__items {
         
-        // outline: 1px solid green;
         @include font(0rem, $text-color, 300, $page-ff, 1.6);
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        align-items: center;
-        flex-direction: column;
+        @include flexbox;
+        @include flex-wrap(wrap);
+        @include justify-content(space-evenly);
+        @include align-items(center);
+        @include flex-direction(column);
         padding: 50px 7px 50px 5px;
         overflow: hidden;
-        // border-radius: 0 20px 20px 0;
         transform: translate(0, -50%);
         position: fixed;
         top: 50vh;
@@ -78,11 +76,33 @@
         @include hover {
             border-color: #ff6033;
         }
+
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            & {
+                height: 50px;
+
+                & svg, i{
+                    transform: translate(0, -63%);
+                }
+            }
+        }
+
+        @supports (-ms-ime-align: auto) {
+            & {
+                height: 50px;
+
+                & svg, i{
+                    transform: translate(0, -63%);
+                }
+            }
+        }
     }
 
 
     &__burger {
-        display: flex;
+        @include flexbox;
+        @include justify-content(space-around);
+        @include align-items(center);
         outline: none;
         justify-content: space-around;
         align-items: center;
@@ -104,12 +124,28 @@
             // background-color: hsl(181, 71%, 24%);
         }
         & .menu {
-            display: flex;
-            flex-direction: column;
+            @include flexbox;
+            @include flex-direction(column);
+            @include justify-content(space-evenly);
+
             width: 20px;
             height: 20px;
-            // overflow: hidden;
-            justify-content: space-evenly;
+
+            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                & {
+                    //IE 10+
+                    position: relative;
+                    transform: translate(0, 50%);
+                }
+            }
+
+            @supports (-ms-ime-align: auto) {
+                & {
+                    position: relative;
+                    transform: translate(0, 50%);
+                }
+            }
+
             
             &__line {
                 border-top: 3px solid $cover-color;
@@ -162,6 +198,18 @@
                 &--mid{
                     transform: translate(-150%, -50%);
                     border-color: #d1e8e200;
+
+                    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                        & {
+                            transform: translate(-200%, -50%);
+                        }
+                    }
+
+                    @supports (-ms-ime-align: auto) {
+                        & {
+                            transform: translate(-200%, -50%);
+                        }
+                    }
                 }
                 
                 &--bot{

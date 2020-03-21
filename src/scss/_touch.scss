@@ -46,6 +46,7 @@
         top: 50vh;
         left: -50px;
         z-index: 1;
+        
     }
 
     &__item {
@@ -82,6 +83,26 @@
             @include hover{
                 & svg{
                     box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.9), 0 10px 5px -5px rgba(0, 0, 0, .7);
+                }
+            }
+        }
+
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            & {
+                height: 50px;
+
+                & svg, i{
+                    transform: translate(0, -63%);
+                }
+            }
+        }
+
+        @supports (-ms-ime-align: auto) {
+            & {
+                height: 50px;
+
+                & svg, i{
+                    transform: translate(0, -63%);
                 }
             }
         }

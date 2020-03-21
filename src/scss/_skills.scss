@@ -6,6 +6,23 @@
 
 .section--skills{
     background: radial-gradient(circle at 50% calc(100% - 340px), #fffb00, #ff7300, #000000);
+
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        position: relative;
+        &:after {
+           content: "Sorry! \A\A But IE too old to show all that I've done here!\A\A\A Please, try another browser!";
+           position: absolute;
+           white-space: pre;
+           text-align: center;
+           transform: translate(-50%, -50%);
+           top: 50%;
+           left: 50%;
+            text-shadow: 1px 1px 2px rgb(82, 83, 0);
+           font-size: 30px;
+
+           color: green;
+        }
+    }
 }
 
 .stack{

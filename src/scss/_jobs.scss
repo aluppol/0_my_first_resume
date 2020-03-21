@@ -51,6 +51,18 @@
         height: 31rem;
         box-shadow: 0 .3rem 0.5rem rgba( 0, 0, 0, 0.4);
 
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            & {
+               margin-left: 40px;
+            }
+        }
+
+        @supports (-ms-ime-align: auto) {
+            & {
+                margin-left: 40px;
+            }
+        }
+
 
         &__link{
             position: absolute;
@@ -234,6 +246,3 @@
     }
 
 }
-
-
-

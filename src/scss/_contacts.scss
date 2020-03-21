@@ -260,3 +260,21 @@
         margin-right: auto;
     }
 }
+
+
+@supports (-ms-ime-align: auto) {
+    /* Edge */
+    
+    .message__input:nth-child(4) {
+        min-height: 250px;
+    }
+    .flex__item {
+       margin-left: auto;
+       margin-right: auto;
+    }
+
+    .section--contacts .flex-footer p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
