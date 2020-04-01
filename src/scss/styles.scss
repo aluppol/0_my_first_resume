@@ -29,6 +29,24 @@ body {
     // background-color: #fff;
     background-image: linear-gradient($a-color, $g-color);
     background-repeat: no-repeat;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        box-shadow: none;
+        border: none;
+        background: rgb(0, 0, 0);
+        border-left: .5px solid rgba(255, 255, 255, 0.8);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(17, 95, 97);
+        outline: none;
+        border-left: .5px solid rgba(255, 255, 255, 0.8);
+        transition: all .3s ease-in-out;
+    }
 }
 
 .container {
