@@ -58,10 +58,10 @@
     width: 100px;
     height: 100px;
     transform-style: preserve-3d;
-    transform-origin: center center -50px;
-    transform: rotateX(-20deg) rotateY(-60deg) rotateZ(0deg) scaleY(1) translateX(-100px) translateY(100px) translateZ(-100px);
+    transform-origin: center bottom -50px;
+    transform: rotateX(0deg) rotateY(-60deg) rotateZ(0deg) scaleY(1) translateX(0) translateY(0) translateZ(0);
     user-select: none;
-    // transition: none;
+    transition: none; 
 
     &__scene{
         position: relative;
@@ -75,7 +75,7 @@
         position: absolute;
         transform: translate(-50%, -100%);
         left: 50%;
-        bottom: 0;
+        top: 50vh;
     }
 
     &__side{
