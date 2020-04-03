@@ -1,30 +1,3 @@
-class Animations{
-
-    _animate({timing, draw, duration}, event) {
-
-        let start = performance.now();
-      
-        requestAnimationFrame(function animate(time) {
-          // timeFraction goes from 0 to 1
-          let timeFraction = (time - start) / duration;
-          if (timeFraction > 1) timeFraction = 1;
-      
-          // calculate the current animation state
-          let progress = timing(timeFraction);
-      
-          draw(progress); // draw it
-      
-          if (timeFraction < 1) {
-            requestAnimationFrame(animate);
-          } else if(event){
-            document.dispatchEvent(event);
-          }
-      
-        });
-    }
-}
-
-
 class Box{
     constructor(box){
 
@@ -58,8 +31,159 @@ class Box{
                 this.rebuildDom();
             }
         }
-        
 
+        class SetBox{
+
+            constructor(setBox){
+                
+                class SetItem{
+
+                    constructor(setItem, position){
+                        this.dom = setItem;
+                        this.dom.dataset.position = position;
+                        this.transform = {
+                            translateZ: 0,
+                            rotate: 0,
+                            scale: 1,
+                            translateY: 0
+                        }
+                    }
+        
+                    
+                    _constructTransform(){
+                        return `translateY(${this.transform.translateY}px) rotateY(${this.transform.rotate}deg) translateZ(${this.transform.translateZ}px) scale(${this.transform.scale})`;
+                    }
+        
+                    rebuildDom(){
+                        this.transform.rotate = this.transform.rotate >= 360 ? this.transform.rotate - 360 : this.transform.rotate;
+
+                        this.dom.style.transform = `${this._constructTransform()}`;
+                        this.dom.querySelector('.diamond').style.transform = `rotateY(-${this.transform.rotate}deg) `;
+                    }
+        
+                    takePosition(){
+
+                        let pos = this.dom.dataset.position.split('-');
+                        this.position = Number(pos[0]);
+                        this.amount = Number(pos[1]);
+
+                        if(this.position != 0){
+                            
+                            this.transform.translateZ = Math.max(Math.min(100, window.innerWidth * 0.2), 75);
+                            this.transform.scale = 1;
+                            this.transform.translateY = 0;
+                            
+                            this.dom.addEventListener('transitionend', function(){
+                                this.dom.style.transition = "none";
+                                this.dom.querySelector('.diamond').style.transition = "none";
+                            }.bind(this),{once: true});
+                            
+                        } else {
+
+                            this.transform.translateZ = 0;
+                            this.transform.scale = 1.25;
+                            this.transform.translateY = -70;
+
+                            this.dom.addEventListener('transitionend', function(){
+                                this.dom.style.transition = "none";
+                                this.dom.querySelector('.diamond').style.transition = "none";
+                                this.dom.closest('.set__box').dispatchEvent(new Event('rotateitems'));
+                            }.bind(this),{once: true});
+                        }
+                        
+                        this.transform.rotate = 360 / this.amount * this.position;
+
+                        this.rebuildDom();
+                    }
+        
+                    revert(){
+                        this.dom.style.transition = "";
+                        
+                        this.transform.translateZ = 0;
+                        this.transform.scale = 0;
+                        this.transform.translateY = 0;
+                        this.transform.rotate = 0;
+
+                        this.rebuildDom();
+                    }
+                }
+
+                this.dom = setBox;
+                this.transform = {
+
+                    translateY: 0,
+                    scale: 1
+                }
+
+                this.rebuildDom();
+
+                this.items = [];
+
+                this.dom.addEventListener('rotateitems', function(e){
+                    this.rotateItems();
+                }.bind(this))
+
+                this.dom.querySelectorAll('.set__item').forEach(function(item, index, array){
+                    this.items.push(new SetItem(item, `${index}-${array.length - 1}`));
+                }.bind(this));
+            }
+            
+            _constructTransform(){
+                return `translateY(${this.transform.translateY}px) scale(${this.transform.scale})`;
+            }
+
+            rebuildDom(){
+                this.dom.style.transform = `${this._constructTransform()}`;
+            }
+
+            flyOut(){
+
+                this.dom.addEventListener('transitionend', function(){
+                    this.displayFullView();
+                }.bind(this), {once: true});
+
+                this.transform.translateY = -window.innerHeight * 0.2;
+                this.transform.scale = 1.5;
+                this.rebuildDom();
+            }
+
+            flyIn(){
+                this.transform.translateY = 0;
+                this.transform.scale = 1;
+                this.rebuildDom();
+            }
+
+            displayFullView(){
+                // console.log(this.items);
+                this.items.forEach(item=>item.takePosition());
+
+                
+            }
+
+            collapseFullView(){
+
+                this.rotate = false;
+                this.items.forEach(item=>item.revert());
+                
+            }
+
+            rotateItems(){
+                this.rotate = true;
+                let step = 0.5;
+                requestAnimationFrame(function move(){
+
+                    if(!this.rotate) return;
+
+                    this.items.forEach(item=>{
+                        if(item.position == 0) return;
+                        item.transform.rotate += step;
+                        item.rebuildDom();
+                    });
+
+                    requestAnimationFrame(move.bind(this));
+                }.bind(this));
+            }
+        }
 
         this.dom = box;
         this.opened = false;
@@ -76,8 +200,11 @@ class Box{
         };
         this.leftDoor = new Door(this.dom.querySelector('.box__side--top-left'));
         this.rightDoor = new Door(this.dom.querySelector('.box__side--top-right'), false);
+        this.setBox = new SetBox(this.dom.querySelector('.set__box'));
 
         this.rebuildDom();
+        
+        this.initiateJumps();
     }
 
     rebuildDom(){
@@ -87,6 +214,13 @@ class Box{
 
     open(){
         this.leftDoor.open();
+        
+        this.rightDoor.dom.addEventListener('transitionend', function(){
+
+            this.setBox.flyOut();
+
+        }.bind(this), {once: true});
+        
         this.rightDoor.open();
     }
 
@@ -137,7 +271,7 @@ class Box{
 
         this.dom.addEventListener('groundSwinged', function (e){
             // console.log('All Done!');
-
+            this.initiateJumps();
         }.bind(this), {once: true});
 
         
@@ -169,7 +303,6 @@ class Box{
             }, new Event('groundSwinged'));
         }
 
-
         function grounding(){
 
             
@@ -188,8 +321,6 @@ class Box{
             }, new Event('grounded'));
         }
 
-
-
         function fallDown(){
 
             let timing  = function (timeFraction){
@@ -206,7 +337,6 @@ class Box{
                 duration: 50 * speed,
             }, new Event('falledDown'));
         }
-
 
         function flyUp(){
 
@@ -226,7 +356,6 @@ class Box{
                 duration: 70 * speed,
             }, new Event('flyedUp'));
         }
-
 
         function accelerate(){
 
@@ -259,7 +388,6 @@ class Box{
             });
         }
 
-
         function prepareToJump(){
 
             let timing  = function (timeFraction){
@@ -276,6 +404,31 @@ class Box{
                 duration: 50 * speed,
             }, new Event('preparedToJump'));
         }
+    }
+
+    initiateJumps(){
+        this.dom.addEventListener('click', function (e){
+
+            this.opened = true;
+
+        }.bind(this), {once: true});
+
+        if(!this.opened){
+
+            setTimeout(function(){
+
+                if(!this.opened){
+
+                    this.jump();
+                } else{
+                    this.initiateJumps();
+                }
+                
+            }.bind(this), 700)
+            return;
+        }
+
+        this.open();
     }
 
     _constructTransform(){
@@ -338,19 +491,3 @@ class Box{
 }
 
 let box = new Box(document.getElementById('skillsBox'));
-
-// setTimeout(()=>{box.open()}, 2000);
-
-// setTimeout(()=>{box.close()}, 4000);
-
-box.jump();
-
-// box._deformate(1.2);
-
-
-let interval = setInterval(()=>{
-
-    box.jump();
-
-}, 7000);
-

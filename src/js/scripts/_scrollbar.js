@@ -13,7 +13,7 @@ window.addEventListener('scroll', (e)=>{
 
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(changeScrollbarColor, 1000);
-});
+}, {passive: true});
 
 
 function changeScrollbarColor(){
