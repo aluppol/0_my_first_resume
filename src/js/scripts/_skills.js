@@ -39,6 +39,151 @@ class Box{
                 class SetItem{
 
                     constructor(setItem, position){
+
+                        class SupersetBox{
+
+                            constructor(supersetBox){
+                                
+                                class SupersetItem{
+                
+                                    constructor(setItem, position){
+                                        this.dom = setItem;
+                                        this.dom.dataset.position = position;
+                                        this.transform = {
+                                            rotate: 0,
+                                            scale: 1,
+                                            translateY: 0
+                                        }
+                                    }
+                        
+                                    
+                                    _constructTransform(){
+                                        return `rotateZ(${this.transform.rotate}deg) translateY(-${this.transform.translateY}px) scale(${this.transform.scale})`;
+                                    }
+                        
+                                    rebuildDom(){
+                                        this.transform.rotate = this.transform.rotate >= 360 ? this.transform.rotate - 360 : this.transform.rotate;
+                
+                                        this.dom.style.transform = `${this._constructTransform()}`;
+                                        this.dom.querySelector('.superset__skill-box').style.transform = `rotate(-${this.transform.rotate}deg) `;
+                                    }
+                        
+                                    takePosition(){
+                
+                                        let pos = this.dom.dataset.position.split('-');
+                                        this.position = Number(pos[0]);
+                                        this.amount = Number(pos[1]);
+                
+                                        if(this.position != 0){
+
+                                            let minItemWidth = 70;
+                                            
+                                            this.transform.translateY = Math.max(this.amount * minItemWidth / (2 * Math.PI), Math.min(window.innerWidth * 0.4, window.innerHeight * 0.3));
+                                            this.transform.scale = 1;
+                                            
+                                            this.dom.addEventListener('transitionend', function(){
+                                                this.dom.style.transition = "none";
+                                                this.dom.querySelector('.superset__skill-box').style.transition = "none";
+                                            }.bind(this),{once: true});
+                                            
+                                        } else {
+
+                                            let minItemWidth = 70;
+                                            
+                                            this.transform.translateY = Math.max(this.amount * minItemWidth / (2 * Math.PI), Math.min(window.innerWidth * 0.4, window.innerHeight * 0.3));
+                                            this.transform.scale = 1;
+                                            
+                                            this.dom.addEventListener('transitionend', function(){
+                                                this.dom.style.transition = "none";
+                                                this.dom.querySelector('.superset__skill-box').style.transition = "none";
+                                                this.dom.closest('.superset__box').dispatchEvent(new Event('rotatesupersetitems'));
+                                            }.bind(this),{once: true});
+                                        }
+                                        
+                                        this.transform.rotate = 360 / this.amount * this.position;
+                
+                                        this.rebuildDom();
+                                    }
+                        
+                                    revert(){
+                                        this.dom.style.transition = "";
+                                        
+                                        this.transform.scale = 0;
+                                        this.transform.translateY = 0;
+                                        this.transform.rotate = 0;
+                
+                                        this.rebuildDom();
+                                    }
+                                }
+                
+                                this.dom = supersetBox;
+                                this.transform = {
+                
+                                    translateY: 0,
+                                    rotate: 0,
+                                    scale: 0.1
+                                }
+                
+                                this.items = [];
+                
+                                this.dom.addEventListener('rotatesupersetitems', function(e){
+                                    this.rotateItems();
+                                }.bind(this))
+                
+                                this.dom.querySelectorAll('.superset__item').forEach(function(item, index, array){
+                                    this.items.push(new SupersetItem(item, `${index}-${array.length}`));
+                                }.bind(this));
+
+                                this.rebuildDom();
+                            }
+                            
+                            _constructTransform(){
+                                return `rotate(${this.transform.rotate}deg) translateY(${this.transform.translateY}px) scale(${this.transform.scale})`;
+                            }
+                
+                            rebuildDom(){
+                                this.dom.style.transform = `${this._constructTransform()}`;
+                            }
+
+                            out(){
+                                // console.log(this.items);
+                                this.transform.scale = 0.8;
+                                
+                                let minItemWidth = 70;
+                                            
+                                this.transform.translateY = Math.max(this.items.length * minItemWidth / (2 * Math.PI), Math.min(window.innerWidth * 0.4, window.innerHeight * 0.3)) - window.innerHeight * 0.2;
+
+                                this.items.forEach(item=>item.takePosition());
+                                this.rebuildDom();
+                            }
+                
+                            in(){
+                
+                                this.rotate = false;
+                                this.transform.scale = 0.1;
+                                this.transform.translateY = 0;
+                                this.items.forEach(item=>item.revert());
+                                this.rebuildDom();
+                            }
+                
+                            rotateItems(){
+                                this.rotate = true;
+                                let step = 0.2;
+                                requestAnimationFrame(function move(){
+                
+                                    if(!this.rotate) return;
+                
+                                    this.items.forEach(item=>{
+                                        item.transform.rotate += step;
+                                        item.rebuildDom();
+                                    });
+                
+                                    requestAnimationFrame(move.bind(this));
+                                }.bind(this));
+                            }
+                        }
+
+
                         this.dom = setItem;
                         this.dom.dataset.position = position;
                         this.transform = {
@@ -47,6 +192,7 @@ class Box{
                             scale: 1,
                             translateY: 0
                         }
+                        this.superset = new SupersetBox(this.dom.querySelector('.superset__box'))
                     }
         
                     
@@ -88,6 +234,7 @@ class Box{
                                 this.dom.style.transition = "none";
                                 this.dom.querySelector('.diamond').style.transition = "none";
                                 this.dom.closest('.set__box').dispatchEvent(new Event('rotateitems'));
+                                this.superset.out();
                             }.bind(this),{once: true});
                         }
                         
@@ -424,7 +571,7 @@ class Box{
                     this.initiateJumps();
                 }
                 
-            }.bind(this), 700)
+            }.bind(this), 200)
             return;
         }
 
