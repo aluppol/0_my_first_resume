@@ -148,7 +148,7 @@ class Box{
                             out(){
                                 // console.log(this.items);
                                 this.transform.scale = 0.8;
-                                
+
                                 let minItemWidth = 70;
                                             
                                 this.transform.translateY = Math.max(this.items.length * minItemWidth / (2 * Math.PI), Math.min(window.innerWidth * 0.4, window.innerHeight * 0.3)) - window.innerHeight * 0.2;
@@ -244,14 +244,58 @@ class Box{
                     }
         
                     revert(){
+
+                        this.superset.in();
+
                         this.dom.style.transition = "";
+                        this.dom.querySelector('.diamond').style.transition = ``;
                         
                         this.transform.translateZ = 0;
-                        this.transform.scale = 0;
+                        this.transform.scale = 1;
                         this.transform.translateY = 0;
                         this.transform.rotate = 0;
 
                         this.rebuildDom();
+                    }
+
+                    switchPositionWith(targetElem){
+                        this.dom.style.transition = "";
+                        targetElem.dom.style.transition = "";
+                        targetElem.dom.querySelector('.diamond').style.transition = ``;
+                        this.dom.querySelector('.diamond').style.transition = ``;
+
+                        this.superset.in();
+                        this.superset.dom.addEventListener('transitionend', function(e){
+
+                            if(targetElem.transform.rotate < 180) targetElem.transform.rotate += 360;
+
+                            let trans = targetElem.transform,
+                                pos = targetElem.position;
+
+                            targetElem.transform = this.transform;
+                            targetElem.dom.querySelector('.diamond').style.transform = `rotateY(-${targetElem.transform.rotate}deg) `;
+                            targetElem.position = this.position;
+
+                            this.transform = trans;
+                            this.position = pos;
+                            this.dom.querySelector('.diamond').style.transform = `rotateY(-${this.transform.rotate}deg) `;
+
+                            targetElem.dom.addEventListener('transitionend', function(){
+
+                                targetElem.dom.style.transition = "none";
+                                this.dom.style.transition = "none";
+                                targetElem.dom.querySelector('.diamond').style.transition = "none";
+                                this.dom.querySelector('.diamond').style.transition = "none";
+
+                                targetElem.dom.closest('.set__box').dispatchEvent(new Event('rotateitems'));
+                                targetElem.superset.out();
+
+                            }.bind(this),{once: true});
+
+                            this.rebuildDom();
+                            targetElem.rebuildDom();
+                            
+                        }.bind(this),{once: true});
                     }
                 }
 
@@ -265,6 +309,7 @@ class Box{
                 this.rebuildDom();
 
                 this.items = [];
+                this.readyState = false;
 
                 this.dom.addEventListener('rotateitems', function(e){
                     this.rotateItems();
@@ -273,6 +318,8 @@ class Box{
                 this.dom.querySelectorAll('.set__item').forEach(function(item, index, array){
                     this.items.push(new SetItem(item, `${index}-${array.length - 1}`));
                 }.bind(this));
+
+                this.dom.addEventListener('click', this.switchItems.bind(this));
             }
             
             _constructTransform(){
@@ -295,6 +342,7 @@ class Box{
             }
 
             flyIn(){
+                this.collapseFullView();
                 this.transform.translateY = 0;
                 this.transform.scale = 1;
                 this.rebuildDom();
@@ -315,6 +363,8 @@ class Box{
             }
 
             rotateItems(){
+                this.dom.dispatchEvent(new Event('boxopened',{bubbles: true}), );
+                this.readyState = true;
                 this.rotate = true;
                 let step = 0.5;
                 requestAnimationFrame(function move(){
@@ -330,10 +380,28 @@ class Box{
                     requestAnimationFrame(move.bind(this));
                 }.bind(this));
             }
+
+            switchItems(e){
+                if(!e.target.closest('.set__item')) return;
+
+                if(!this.readyState) return;
+
+                this.readyState = false;
+                
+                let targ = this.items.find(item=>item.dom == e.target.closest('.set__item')),
+                    cur = this.items.find(item=>item.position == 0);
+
+                if(targ == cur) return;
+
+                this.rotate = false;
+
+                cur.switchPositionWith(targ);
+            }
         }
 
         this.dom = box;
         this.opened = false;
+        this.readyState = true;
         this.transform = {
             rotateX : 0,    //-20
             rotateY : -80,
@@ -348,6 +416,22 @@ class Box{
         this.leftDoor = new Door(this.dom.querySelector('.box__side--top-left'));
         this.rightDoor = new Door(this.dom.querySelector('.box__side--top-right'), false);
         this.setBox = new SetBox(this.dom.querySelector('.set__box'));
+
+        this.dom.addEventListener('click', function(e){
+            if(!e.target.matches('.box__side')) return;
+            if(!this.readyState) return;
+            if(this.opened == false){
+                this.opened = true;
+            } else{
+                this.close();
+            }
+            this.readyState = false;
+            
+        }.bind(this));
+
+        this.dom.addEventListener('boxopened', function(e){
+            this.readyState = true;
+        }.bind(this));
 
         this.rebuildDom();
         
@@ -372,8 +456,24 @@ class Box{
     }
 
     close(){
-        this.leftDoor.close();
-        this.rightDoor.close();
+        
+        this.setBox.flyIn();
+
+        this.setBox.dom.addEventListener('transitionend', function closeBoxListener(e){       
+            if(e.target != this.setBox.dom){
+                this.setBox.dom.addEventListener('transitionend', closeBoxListener.bind(this), {once: true});
+                return;
+            }
+            this.leftDoor.close();
+            this.rightDoor.close();
+        }.bind(this), {once: true});
+        
+
+        this.leftDoor.dom.addEventListener('transitionend', function(e){
+            this.opened = false;
+            this.readyState = true;
+            this.initiateJumps();
+        }.bind(this), {once: true});
     }
 
     jump(){
@@ -554,11 +654,6 @@ class Box{
     }
 
     initiateJumps(){
-        this.dom.addEventListener('click', function (e){
-
-            this.opened = true;
-
-        }.bind(this), {once: true});
 
         if(!this.opened){
 
