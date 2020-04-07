@@ -386,13 +386,13 @@ class Box{
 
                 if(!this.readyState) return;
 
-                this.readyState = false;
                 
                 let targ = this.items.find(item=>item.dom == e.target.closest('.set__item')),
-                    cur = this.items.find(item=>item.position == 0);
-
+                cur = this.items.find(item=>item.position == 0);
+                
                 if(targ == cur) return;
-
+                
+                this.readyState = false;
                 this.rotate = false;
 
                 cur.switchPositionWith(targ);
