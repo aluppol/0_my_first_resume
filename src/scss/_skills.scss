@@ -86,6 +86,7 @@
         background: radial-gradient(circle at 50% 30%, rgb(251, 255, 0),  rgb(172, 143, 0));
         border: 1px solid rgb(190, 140, 0);
         opacity: 1;
+        // transition: all 1s ease-in-out;;
 
         &--left{
             transform-origin: left;
@@ -119,6 +120,12 @@
             height: 50px;
         }
 
+    }
+
+    &--opened{
+        & .box__side{
+            background: radial-gradient(circle at 50% 30%, rgb(235, 212, 0), rgb(235, 125, 0)  );
+        }
     }
 
     &__inner{

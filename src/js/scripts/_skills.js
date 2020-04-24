@@ -422,7 +422,9 @@ class Box{
             if(!this.readyState) return;
             if(this.opened == false){
                 this.opened = true;
+                this.dom.classList.add('box--opened');
             } else{
+                this.dom.classList.remove('box--opened');
                 this.close();
             }
             this.readyState = false;
